@@ -1,0 +1,135 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css"/>
+    <title>My First Todo list app</title>
+</head>
+<body>
+<div class="container">
+
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <h1>Todo List</h1>
+    <div>
+        <button id="createItem" type="button" class="btn btn-primary">Create</button>
+    </div>
+    <br/>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">name</th>
+            <th scope="col">state</th>
+            <th scope="col">action</th>
+        </tr>
+        </thead>
+        <tbody id="items">
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>increase front / full-stack skills</td>
+            <td>done</td>
+            <td class="action">
+                <div class="dropdown">
+                    <div class="btn btn-sm btn-primary dropdown-toggle" type="button"
+                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        state
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">todo</a>
+                        <a class="dropdown-item" href="#">doing</a>
+                        <a class="dropdown-item" href="#">done</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>make a todo app</td>
+            <td>doing</td>
+            <td class="action">
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        state
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">todo</a>
+                        <a class="dropdown-item" href="#">doing</a>
+                        <a class="dropdown-item" href="#">done</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>get the CKAD certification</td>
+            <td>doing</td>
+            <td class="action">
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        state
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">todo</a>
+                        <a class="dropdown-item" href="#">doing</a>
+                        <a class="dropdown-item" href="#">done</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>increase front / full-stack skills</td>
+            <td>todo</td>
+            <td class="action">
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        state
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">todo</a>
+                        <a class="dropdown-item" href="#">doing</a>
+                        <a class="dropdown-item" href="#">done</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>increase front / full-stack skills</td>
+            <td>done</td>
+            <td class="action">
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        state
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">todo</a>
+                        <a class="dropdown-item" href="#">doing</a>
+                        <a class="dropdown-item" href="#">done</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script type="application/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="index.js"></script>
+</html>
