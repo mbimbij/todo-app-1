@@ -17,21 +17,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 public class ListItemsRestStepDef {
-
-//    @LocalServerPort
+    @LocalServerPort
     private int port;
 
     @Autowired(required = false)
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private ItemRepository itemRepository;
-
-    @Autowired
     private UserManagerMock userManager;
-
-    @Autowired
-    private MockMvc mockMvc;
 
     private ListItemsResponseModel response;
 

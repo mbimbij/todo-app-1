@@ -22,11 +22,6 @@ public class PresentItemsUsecaseStepDef {
         this.context = context;
     }
 
-    @Given("users")
-    public void loggedInUsers(List<String> userIds) {
-        System.out.println(userIds);
-    }
-
     @Then("presented items for user \"{user}\" are")
     public void presentedItemsForUserAre(User user, DataTable expectedItemPresentations) {
         List<ItemPresentation> itemPresentations = usecase.presentItemsForUser(user);

@@ -9,13 +9,11 @@ import org.springframework.test.context.ContextConfiguration;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-//@SpringBootTest(webEnvironment = RANDOM_PORT)
-@SpringBootTest
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 @ContextConfiguration(classes = {
         SpringCucumberContextConfiguration.SpringConfiguration.class,
         TodoApplication.class
 })
-@AutoConfigureMockMvc
 @CucumberContextConfiguration
 public class SpringCucumberContextConfiguration {
 

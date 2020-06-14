@@ -8,4 +8,6 @@ public interface ItemRepository {
     void deleteAll();
 
     List<Item> getItemsForUser(String user);
+
+    void deleteAllForUser(User user);
 }

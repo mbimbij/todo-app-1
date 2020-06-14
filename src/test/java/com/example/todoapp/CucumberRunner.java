@@ -1,4 +1,4 @@
-//package com.example.todoapp.cucumber;
+//package com.example.todoapp;
 //
 //import io.cucumber.junit.Cucumber;
 //import io.cucumber.junit.CucumberOptions;
@@ -7,7 +7,6 @@
 //@RunWith(Cucumber.class)
 //@CucumberOptions(
 //        plugin = {"pretty"},
-//        tags = {"@component"},
 //        features = {"src/test/resources/cucumber_features"},
 //        glue = {"com.example.todoapp.cucumber"}
 //        )

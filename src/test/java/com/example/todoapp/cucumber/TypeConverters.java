@@ -40,4 +40,15 @@ public class TypeConverters {
         result.addAll(itemPresentationsAsListofLists);
         return DataTable.create(result);
     }
+
+    public static DataTable toDataTable(List<ItemPresentation> itemPresentations) {
+        List<List<String>> result = new ArrayList<>();
+        List<String> header = List.of("name", "state");
+        result.add(header);
+        List<List<String>> itemPresentationsAsListofLists = itemPresentations.stream()
+                .map(itemPresentation -> List.of(itemPresentation.getName(), itemPresentation.getState()))
+                .collect(Collectors.toList());
+        result.addAll(itemPresentationsAsListofLists);
+        return DataTable.create(result);
+    }
 }
