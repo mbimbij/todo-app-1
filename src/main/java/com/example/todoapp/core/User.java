@@ -1,6 +1,5 @@
 package com.example.todoapp.core;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

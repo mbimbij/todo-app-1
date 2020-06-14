@@ -42,8 +42,17 @@ public class AppRestController {
 
         @PostMapping("/createItem")
         public CreateItemOutputRest createItem(@RequestBody CreateItemInputRest inputRest) {
-            CreateItemOutput output = usecase.createItem(new CreateItemInput(userManager.getLoggedInUser().getId(), inputRest.getName(), inputRest.getState()));
+            CreateItemInput input = mapInput(inputRest);
+            CreateItemOutput output = usecase.createItem(input);
+            return mapOutput(output);
+        }
+
+        private CreateItemOutputRest mapOutput(CreateItemOutput output) {
             return new CreateItemOutputRest(output.getName(), output.getState());
+        }
+
+        private CreateItemInput mapInput(@RequestBody CreateItemInputRest inputRest) {
+            return new CreateItemInput(userManager.getLoggedInUser().getId(), inputRest.getName(), inputRest.getState());
         }
     }
 }
