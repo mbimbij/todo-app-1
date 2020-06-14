@@ -1,7 +1,7 @@
 Vue.component('button-create-item', {
-    data: function () {
-        return {
-            count: 0
+    data() {
+        return{
+            name: null
         }
     },
     template: '#createItem'
@@ -11,7 +11,8 @@ new Vue({
     el: '#app',
     data() {
         return {
-            items: []
+            items: [],
+            newItemName: null
         }
     },
     mounted() {
@@ -19,5 +20,17 @@ new Vue({
             .get('http://localhost:8080/listItems')
             .then(response => (this.items = response.data.items))
             .catch(reason => (alert(reason)))
+    },
+    methods:{
+        createItem: function() {
+            var data = {name: this.newItemName, state: 'todo'};
+            axios
+                .post('http://localhost:8080/createItem', data)
+                .then(response => {
+                    this.newItemName = '';
+                    return (this.items.push(data));
+                })
+                .catch(reason => (alert(reason)))
+        }
     }
 })

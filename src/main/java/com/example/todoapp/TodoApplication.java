@@ -4,6 +4,7 @@ import com.example.todoapp.core.CreateItemUsecase;
 import com.example.todoapp.core.Item;
 import com.example.todoapp.core.ItemRepository;
 import com.example.todoapp.core.ListItemsUsecase;
+import com.example.todoapp.core.User;
 import com.example.todoapp.core.UserManager;
 import com.example.todoapp.core.UserRepository;
 import com.example.todoapp.infra.InMemoryItemRepository;
@@ -34,7 +35,9 @@ public class TodoApplication {
 
     @Bean
     public UserRepository inMemoryUserRepository() {
-        return new InMemoryUserRepository();
+        InMemoryUserRepository repository = new InMemoryUserRepository();
+        repository.save(User.createWithId("user1"));
+        return repository;
     }
 
     @Bean
