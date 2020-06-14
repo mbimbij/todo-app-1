@@ -26,14 +26,10 @@ Feature: Presents todo list to logged in users
       | item6 | done  |
 
   Scenario: Present items list from rest controller
-    Given logged in user "user1"
+    Given logged in user "user2"
     When calling listItems rest method
-      | name  | state |
-      | item1 | todo  |
-      | item2 | doing |
-      | item3 | done  |
     Then presented items are
-      | name  | state |
+      | name   | state |
       | item4 | todo  |
-      | item5 | doing |
-      | item6 | done  |
+      | item5  | doing |
+      | item6  | done  |

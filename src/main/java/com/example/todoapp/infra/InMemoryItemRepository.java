@@ -17,6 +17,11 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
+    public void deleteAll() {
+        items.clear();
+    }
+
+    @Override
     public List<Item> getItemsForUser(String user) {
         return items.stream()
                 .filter(item -> item.getOwner().equals(user))

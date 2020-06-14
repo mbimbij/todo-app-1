@@ -3,7 +3,6 @@ package com.example.todoapp.cucumber;
 import com.example.todoapp.core.ItemRepository;
 import com.example.todoapp.core.ListItemsResponseModel;
 import com.example.todoapp.core.User;
-import com.example.todoapp.core.UserManager;
 import com.example.todoapp.infra.UserManagerMock;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
@@ -38,15 +37,16 @@ public class ListItemsRestStepDef {
     }
 
     @When("calling listItems rest method")
-    public void callingListItemsRestMethod(DataTable dataTable) {
+    public void callingListItemsRestMethod() {
         String url = String.format("http://localhost:%d/listItems", port);
         ResponseEntity<ListItemsResponseModel> entity = restTemplate.getForEntity(url, ListItemsResponseModel.class);
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        System.out.println();
+        response = entity.getBody();
     }
 
     @Then("presented items are")
-    public void presentedItemsAre(DataTable dataTable) {
-        System.out.println();
+    public void presentedItemsAre(DataTable expectedItemList) {
+        DataTable actualItemList = TypeConverters.toDataTable(response);
+        actualItemList.unorderedDiff(expectedItemList);
     }
 }

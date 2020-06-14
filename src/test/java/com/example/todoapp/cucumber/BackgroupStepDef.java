@@ -15,6 +15,7 @@ public class BackgroupStepDef {
 
     @And("the todo items")
     public void theTodoItems(List<Item> items) {
+        itemRepository.deleteAll();
         items.forEach(itemRepository::save);
     }
 }
