@@ -9,6 +9,7 @@ import com.example.todoapp.core.User;
 import com.example.todoapp.core.CreateItemUsecase;
 import com.example.todoapp.cucumber.TypeConverters.TestInput;
 import com.example.todoapp.infra.CreateItemInputRest;
+import com.example.todoapp.infra.CreateItemOutputRest;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -64,7 +65,7 @@ public class CreateItemStepDef {
         @Autowired
         private TestRestTemplate restTemplate;
 
-        private CreateItemOutput actualItemOutputData;
+        private CreateItemOutputRest actualItemOutputData;
 
         @When("\"{user}\" creates the item through rest controller")
         public void createsTheItemThroughRestController(User user, TestInput restInput) {
@@ -72,7 +73,7 @@ public class CreateItemStepDef {
             String newItemName = restInput.getName();
             String newItemState = restInput.getState();
             CreateItemInputRest createItemInput = new CreateItemInputRest(newItemName, newItemState);
-            ResponseEntity<CreateItemOutput> responseEntity = restTemplate.postForEntity(url, createItemInput, CreateItemOutput.class);
+            ResponseEntity<CreateItemOutputRest> responseEntity = restTemplate.postForEntity(url, createItemInput, CreateItemOutputRest.class);
             assertThat(responseEntity.getStatusCodeValue()).isBetween(200,299);
             actualItemOutputData = responseEntity.getBody();
         }

@@ -4,6 +4,10 @@ import lombok.Data;
 
 @Data
 public class CreateItemOutput {
-    private String name;
-    private String state;
+    private final String name;
+    private final String state;
+
+    public static CreateItemOutput createFromItem(Item newItem) {
+        return new CreateItemOutput(newItem.getName(), newItem.getState());
+    }
 }

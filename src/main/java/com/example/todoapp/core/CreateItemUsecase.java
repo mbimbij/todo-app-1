@@ -9,7 +9,7 @@ public class CreateItemUsecase {
         this.itemRepository = itemRepository;
     }
 
-    public ItemPresentation createItem(CreateItemInput createItemInput) {
+    public CreateItemOutput createItem(CreateItemInput createItemInput) {
         String userId = createItemInput.getUserId();
         String name = createItemInput.getName();
         String state = createItemInput.getState();
@@ -17,6 +17,6 @@ public class CreateItemUsecase {
             throw new UnknownUserException();
         }
         Item newItem = itemRepository.save(Item.create(name, userId, state));
-        return ItemPresentation.createFromItem(newItem);
+        return CreateItemOutput.createFromItem(newItem);
     }
 }
