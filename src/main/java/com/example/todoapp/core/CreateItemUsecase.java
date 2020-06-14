@@ -9,13 +9,14 @@ public class CreateItemUsecase {
         this.itemRepository = itemRepository;
     }
 
-    public void createItem(CreateItemInput createItemInput) {
+    public ItemPresentation createItem(CreateItemInput createItemInput) {
         String userId = createItemInput.getUserId();
         String name = createItemInput.getName();
         String state = createItemInput.getState();
         if(!userRepository.exists(userId)){
             throw new UnknownUserException();
         }
-        itemRepository.save(Item.create(name, userId, state));
+        Item newItem = itemRepository.save(Item.create(name, userId, state));
+        return ItemPresentation.createFromItem(newItem);
     }
 }

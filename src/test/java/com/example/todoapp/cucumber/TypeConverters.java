@@ -4,12 +4,13 @@ import com.example.todoapp.core.Item;
 import com.example.todoapp.core.ItemPresentation;
 import com.example.todoapp.core.ListItemsResponseModel;
 import com.example.todoapp.core.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.ParameterType;
+import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -50,5 +51,16 @@ public class TypeConverters {
                 .collect(Collectors.toList());
         result.addAll(itemPresentationsAsListofLists);
         return DataTable.create(result);
+    }
+
+    @DataTableType
+    public TestInput testInput(Map<String, String> map) {
+        return new ObjectMapper().convertValue(map, TestInput.class);
+    }
+
+    @Data
+    public static class TestInput {
+        private String name;
+        private String state;
     }
 }

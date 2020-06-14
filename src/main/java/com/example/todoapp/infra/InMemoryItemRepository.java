@@ -14,8 +14,9 @@ public class InMemoryItemRepository implements ItemRepository {
     private List<Item> items = new ArrayList<>();
 
     @Override
-    public void save(Item item) {
+    public Item save(Item item) {
         items.add(item);
+        return item;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.example.todoapp.cucumber;
 
-import com.example.todoapp.core.ItemRepository;
 import com.example.todoapp.core.ListItemsResponseModel;
 import com.example.todoapp.core.User;
 import com.example.todoapp.infra.UserManagerMock;
@@ -14,13 +13,12 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.MockMvc;
 
 public class ListItemsRestStepDef {
     @LocalServerPort
     private int port;
 
-    @Autowired(required = false)
+    @Autowired
     private TestRestTemplate restTemplate;
 
     @Autowired
