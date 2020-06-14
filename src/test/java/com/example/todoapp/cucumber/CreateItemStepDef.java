@@ -68,7 +68,7 @@ public class CreateItemStepDef {
 
         @When("\"{user}\" creates the item through rest controller")
         public void createsTheItemThroughRestController(User user, TestInput restInput) {
-            String url = "http://localhost:8080/createItem";
+            String url = String.format("http://localhost:%d/createItem", port);
             String newItemName = restInput.getName();
             String newItemState = restInput.getState();
             CreateItemInputRest createItemInput = new CreateItemInputRest(newItemName, newItemState);
