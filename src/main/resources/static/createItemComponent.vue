@@ -1,6 +1,6 @@
 <template>
-    <button-create-item>
-        <button id="createItem" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <div id="createItem">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             Create
         </button>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -23,5 +23,10 @@
                 </div>
             </div>
         </div>
-    </button-create-item>
+    </div>
 </template>
+
+<script>
+    import src from './index'
+    export default src
+</script>
