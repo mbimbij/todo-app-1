@@ -6,12 +6,7 @@
     <title>My First Todo list app</title>
 </head>
 <body>
-<div class="container">
-
-    <div id="app">
-        {{ message }}
-    </div>
-
+<div class="container"id="app">
     <h1>Todo List</h1>
     <div>
         <button id="createItem" type="button" class="btn btn-primary">Create</button>
@@ -28,88 +23,16 @@
         </tr>
         </thead>
         <tbody id="items">
-        <tr>
+        <tr v-for="item in items">
             <td><input type="checkbox"/></td>
-            <td>increase front / full-stack skills</td>
-            <td>done</td>
+            <td>{{item.name}}</td>
+            <td>{{item.state}}</td>
             <td class="action">
                 <div class="dropdown">
                     <div class="btn btn-sm btn-primary dropdown-toggle" type="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         state
                     </div>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">todo</a>
-                        <a class="dropdown-item" href="#">doing</a>
-                        <a class="dropdown-item" href="#">done</a>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>make a todo app</td>
-            <td>doing</td>
-            <td class="action">
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        state
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">todo</a>
-                        <a class="dropdown-item" href="#">doing</a>
-                        <a class="dropdown-item" href="#">done</a>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>get the CKAD certification</td>
-            <td>doing</td>
-            <td class="action">
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        state
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">todo</a>
-                        <a class="dropdown-item" href="#">doing</a>
-                        <a class="dropdown-item" href="#">done</a>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>increase front / full-stack skills</td>
-            <td>todo</td>
-            <td class="action">
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        state
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">todo</a>
-                        <a class="dropdown-item" href="#">doing</a>
-                        <a class="dropdown-item" href="#">done</a>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"/></td>
-            <td>increase front / full-stack skills</td>
-            <td>done</td>
-            <td class="action">
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        state
-                    </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="#">todo</a>
                         <a class="dropdown-item" href="#">doing</a>

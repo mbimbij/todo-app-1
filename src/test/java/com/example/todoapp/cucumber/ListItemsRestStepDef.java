@@ -14,13 +14,14 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
 
 public class ListItemsRestStepDef {
 
-    @LocalServerPort
+//    @LocalServerPort
     private int port;
 
-    @Autowired
+    @Autowired(required = false)
     private TestRestTemplate restTemplate;
 
     @Autowired
@@ -28,6 +29,9 @@ public class ListItemsRestStepDef {
 
     @Autowired
     private UserManagerMock userManager;
+
+    @Autowired
+    private MockMvc mockMvc;
 
     private ListItemsResponseModel response;
 
