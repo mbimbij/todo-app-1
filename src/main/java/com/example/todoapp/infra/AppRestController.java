@@ -55,4 +55,9 @@ public class AppRestController {
             return new CreateItemInput(userManager.getLoggedInUser().getId(), inputRest.getName(), inputRest.getState());
         }
     }
+
+    @RestController
+    public class DeleteItemRestController{
+
+    }
 }

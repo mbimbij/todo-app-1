@@ -5,6 +5,7 @@ import com.example.todoapp.core.ItemRepository;
 import com.example.todoapp.core.User;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -34,5 +35,10 @@ public class InMemoryItemRepository implements ItemRepository {
     @Override
     public void deleteAllForUser(User user) {
         items.removeIf(item -> Objects.equals(item.getOwner(), user.getId()));
+    }
+
+    @Override
+    public void deleteByIds(Collection<String> itemIds) {
+        items.removeIf(item -> itemIds.contains(item.getId()));
     }
 }

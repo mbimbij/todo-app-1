@@ -1,6 +1,7 @@
 package com.example.todoapp;
 
 import com.example.todoapp.core.CreateItemUsecase;
+import com.example.todoapp.core.DeleteItemsUsecase;
 import com.example.todoapp.core.Item;
 import com.example.todoapp.core.ItemRepository;
 import com.example.todoapp.core.ListItemsUsecase;
@@ -53,5 +54,10 @@ public class TodoApplication {
     @Bean
     public CreateItemUsecase createItemUsecase(UserRepository userRepository, ItemRepository itemRepository) {
         return new CreateItemUsecase(userRepository, itemRepository);
+    }
+
+    @Bean
+    public DeleteItemsUsecase deleteItemsUsecase(ItemRepository itemRepository){
+        return new DeleteItemsUsecase(itemRepository);
     }
 }

@@ -31,6 +31,16 @@ new Vue({
                     return (this.items.push(data));
                 })
                 .catch(reason => (alert(reason)))
+        },
+        deleteItem: function (item) {
+            axios
+                .post('http://localhost:8080/deleteItem', data)
+                .then(response => {
+                    this.items.remove(function(el) { return el.name === item.name; });
+                })
+                .catch(reason => (alert(reason)))
         }
     }
 })
+
+feather.replace()

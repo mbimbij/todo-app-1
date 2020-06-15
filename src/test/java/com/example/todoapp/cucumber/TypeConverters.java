@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 public class TypeConverters {
     @DataTableType
     public Item item(Map<String, String> map) {
-        return Item.create(map.get("name"), map.get("owner"), map.get("state"));
+//        return Item.create(map.get("name"), map.get("owner"), map.get("state"));
+        return new ObjectMapper().convertValue(map, Item.class);
     }
 
     @DataTableType

@@ -28,8 +28,8 @@ Feature: Presents todo list to logged in users
   Scenario: Present items list from rest controller
     Given logged in user "user2"
     When calling listItems rest method
-    Then presented items are
-      | name   | state |
+    Then presented items though rest interface are
+      | name  | state |
       | item4 | todo  |
-      | item5  | doing |
-      | item6  | done  |
+      | item5 | doing |
+      | item6 | done  |

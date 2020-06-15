@@ -39,9 +39,9 @@ public class ListItemsRestStepDef {
         response = entity.getBody();
     }
 
-    @Then("presented items are")
+    @Then("presented items though rest interface are")
     public void presentedItemsAre(DataTable expectedItemList) {
         DataTable actualItemList = TypeConverters.toDataTable(response);
-        actualItemList.unorderedDiff(expectedItemList);
+        expectedItemList.unorderedDiff(actualItemList);
     }
 }

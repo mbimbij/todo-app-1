@@ -26,7 +26,7 @@ public class PresentItemsUsecaseStepDef {
     public void presentedItemsForUserAre(User user, DataTable expectedItemPresentations) {
         List<ItemPresentation> itemPresentations = usecase.presentItemsForUser(user);
         DataTable actualItemPresentations = convertItemPresentationsToCucumberDatatable(itemPresentations);
-        actualItemPresentations.unorderedDiff(expectedItemPresentations);
+        expectedItemPresentations.unorderedDiff(actualItemPresentations);
     }
 
     private DataTable convertItemPresentationsToCucumberDatatable(List<ItemPresentation> itemPresentations) {

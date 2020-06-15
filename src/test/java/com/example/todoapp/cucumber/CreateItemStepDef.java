@@ -54,7 +54,7 @@ public class CreateItemStepDef {
         public void presentedItemsForUserAre(User user, DataTable expectedItemList) throws Throwable {
             List<ItemPresentation> itemPresentations = listItemsUsecase.presentItemsForUser(user);
             DataTable actualItemList = TypeConverters.toDataTable(itemPresentations);
-            actualItemList.unorderedDiff(expectedItemList);
+            expectedItemList.unorderedDiff(actualItemList);
         }
     }
 
