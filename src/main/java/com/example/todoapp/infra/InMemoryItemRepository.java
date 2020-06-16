@@ -41,4 +41,9 @@ public class InMemoryItemRepository implements ItemRepository {
     public void deleteByIds(Collection<String> itemIds) {
         items.removeIf(item -> itemIds.contains(item.getId()));
     }
+
+    @Override
+    public void deleteById(String itemId) {
+        items.removeIf(item -> Objects.equals(item.getId(), itemId));
+    }
 }

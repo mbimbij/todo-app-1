@@ -12,4 +12,8 @@ public class DeleteItemsUsecase {
     public void deleteByIds(Collection<String> itemIds) {
         itemRepository.deleteByIds(itemIds);
     }
+
+    public void deleteById(String itemId) {
+        itemRepository.deleteById(itemId);
+    }
 }

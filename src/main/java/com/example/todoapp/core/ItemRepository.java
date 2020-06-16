@@ -13,4 +13,6 @@ public interface ItemRepository {
     void deleteAllForUser(User user);
 
     void deleteByIds(Collection<String> itemIds);
+
+    void deleteById(String itemId);
 }

@@ -3,13 +3,16 @@ package com.example.todoapp.infra;
 import com.example.todoapp.core.CreateItemInput;
 import com.example.todoapp.core.CreateItemOutput;
 import com.example.todoapp.core.CreateItemUsecase;
+import com.example.todoapp.core.DeleteItemsUsecase;
 import com.example.todoapp.core.ItemPresentation;
 import com.example.todoapp.core.ListItemsResponseModel;
 import com.example.todoapp.core.ListItemsUsecase;
 import com.example.todoapp.core.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,6 +61,17 @@ public class AppRestController {
 
     @RestController
     public class DeleteItemRestController{
+        @Autowired
+        private DeleteItemsUsecase usecase;
 
+        @PostMapping("/deleteItems")
+        public void deleteItems(@RequestBody List<String> itemIds) {
+            usecase.deleteByIds(itemIds);
+        }
+
+        @DeleteMapping("/item/{itemId}")
+        public void deleteItem(@PathVariable("itemId") String itemId){
+            usecase.deleteById(itemId);
+        }
     }
 }

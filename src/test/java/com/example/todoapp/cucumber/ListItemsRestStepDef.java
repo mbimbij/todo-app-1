@@ -17,19 +17,9 @@ import org.springframework.http.ResponseEntity;
 public class ListItemsRestStepDef {
     @LocalServerPort
     private int port;
-
     @Autowired
     private TestRestTemplate restTemplate;
-
-    @Autowired
-    private UserManagerMock userManager;
-
     private ListItemsResponseModel response;
-
-    @Given("logged in user \"{user}\"")
-    public void loggedInUser(User user) {
-        userManager.setLoggedInUser(user);
-    }
 
     @When("calling listItems rest method")
     public void callingListItemsRestMethod() {
