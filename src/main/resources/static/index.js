@@ -28,15 +28,15 @@ new Vue({
                 .post('http://localhost:8080/createItem', data)
                 .then(response => {
                     this.newItemName = '';
-                    return (this.items.push(data));
+                    return (this.items.push(response.data));
                 })
                 .catch(reason => (alert(reason)))
         },
-        deleteItem: function (item) {
+        deleteItem: function (itemId) {
             axios
-                .post('http://localhost:8080/deleteItem', data)
+                .delete('http://localhost:8080/item/'+itemId)
                 .then(response => {
-                    this.items.remove(function(el) { return el.name === item.name; });
+                    this.items.remove(function(el) { return el.id === itemId; });
                 })
                 .catch(reason => (alert(reason)))
         }

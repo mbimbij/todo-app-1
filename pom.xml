@@ -40,6 +40,11 @@
 <!--			<artifactId>mapstruct</artifactId>-->
 <!--			<version>${mapstruct.version}</version>-->
 <!--		</dependency>-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
 
 		<!-- BEGIN test dependencies -->
 		<dependency>

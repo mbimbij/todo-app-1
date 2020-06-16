@@ -51,7 +51,7 @@ public class AppRestController {
         }
 
         private CreateItemOutputRest mapOutput(CreateItemOutput output) {
-            return new CreateItemOutputRest(output.getName(), output.getState());
+            return new CreateItemOutputRest(output.getId(), output.getName(), output.getState());
         }
 
         private CreateItemInput mapInput(@RequestBody CreateItemInputRest inputRest) {
@@ -60,7 +60,7 @@ public class AppRestController {
     }
 
     @RestController
-    public class DeleteItemRestController{
+    public class DeleteItemRestController {
         @Autowired
         private DeleteItemsUsecase usecase;
 
@@ -70,7 +70,7 @@ public class AppRestController {
         }
 
         @DeleteMapping("/item/{itemId}")
-        public void deleteItem(@PathVariable("itemId") String itemId){
+        public void deleteItem(@PathVariable("itemId") String itemId) {
             usecase.deleteById(itemId);
         }
     }

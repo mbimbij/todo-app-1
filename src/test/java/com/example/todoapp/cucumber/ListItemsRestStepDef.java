@@ -7,12 +7,15 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ListItemsRestStepDef {
     @LocalServerPort
@@ -25,7 +28,7 @@ public class ListItemsRestStepDef {
     public void callingListItemsRestMethod() {
         String url = String.format("http://localhost:%d/listItems", port);
         ResponseEntity<ListItemsResponseModel> entity = restTemplate.getForEntity(url, ListItemsResponseModel.class);
-        Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         response = entity.getBody();
     }
 
@@ -33,5 +36,8 @@ public class ListItemsRestStepDef {
     public void presentedItemsAre(DataTable expectedItemList) {
         DataTable actualItemList = TypeConverters.toDataTable(response);
         expectedItemList.unorderedDiff(actualItemList);
+        assertThat(response.items)
+                .as("id of presented items should not be blank")
+                .allMatch(itemPresentation -> StringUtils.isNotBlank(itemPresentation.getId()));
     }
 }

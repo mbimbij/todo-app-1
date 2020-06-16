@@ -13,12 +13,14 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class TypeConverters {
     @DataTableType
     public Item item(Map<String, String> map) {
 //        return Item.create(map.get("name"), map.get("owner"), map.get("state"));
+        map.putIfAbsent("id", UUID.randomUUID().toString());
         return new ObjectMapper().convertValue(map, Item.class);
     }
 

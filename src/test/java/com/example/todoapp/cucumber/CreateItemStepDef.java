@@ -14,6 +14,7 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.SoftAssertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -55,6 +56,7 @@ public class CreateItemStepDef {
             List<ItemPresentation> itemPresentations = listItemsUsecase.presentItemsForUser(user);
             DataTable actualItemList = TypeConverters.toDataTable(itemPresentations);
             expectedItemList.unorderedDiff(actualItemList);
+            Utils.verifyItemPresentationIdsNotBlank(itemPresentations);
         }
     }
 
@@ -83,6 +85,7 @@ public class CreateItemStepDef {
             SoftAssertions.assertSoftly(softAssertions -> {
                 softAssertions.assertThat(actualItemOutputData.getName()).isEqualTo(expected.getName());
                 softAssertions.assertThat(actualItemOutputData.getState()).isEqualTo(expected.getState());
+                softAssertions.assertThat(actualItemOutputData.getId()).isNotBlank();
             });
         }
     }
