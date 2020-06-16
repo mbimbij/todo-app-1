@@ -1,9 +1,12 @@
 package com.example.todoapp.infra;
 
+import com.example.todoapp.core.ChangeItemStateOutput;
+import com.example.todoapp.core.ChangeItemStateUsecase;
 import com.example.todoapp.core.CreateItemInput;
 import com.example.todoapp.core.CreateItemOutput;
 import com.example.todoapp.core.CreateItemUsecase;
 import com.example.todoapp.core.DeleteItemsUsecase;
+import com.example.todoapp.core.Item;
 import com.example.todoapp.core.ItemPresentation;
 import com.example.todoapp.core.ListItemsResponseModel;
 import com.example.todoapp.core.ListItemsUsecase;
@@ -72,6 +75,19 @@ public class AppRestController {
         @DeleteMapping("/item/{itemId}")
         public void deleteItem(@PathVariable("itemId") String itemId) {
             usecase.deleteById(itemId);
+        }
+    }
+
+    @RestController
+    public class ChangeItemStateRestController {
+        @Autowired
+        private ChangeItemStateUsecase usecase;
+
+        @PostMapping("/item/{itemId}/changeState/{newState}")
+        public ChangeItemStateOutput changeItemState(@PathVariable("itemId") String itemId,
+                                                     @PathVariable("newState") String newState){
+            Item updatedItem = usecase.changeState(itemId, newState);
+            return ChangeItemStateOutput.createFromItem(updatedItem);
         }
     }
 }

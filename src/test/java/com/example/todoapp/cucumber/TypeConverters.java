@@ -1,5 +1,6 @@
 package com.example.todoapp.cucumber;
 
+import com.example.todoapp.core.ChangeItemStateOutput;
 import com.example.todoapp.core.Item;
 import com.example.todoapp.core.ItemPresentation;
 import com.example.todoapp.core.ListItemsResponseModel;
@@ -65,5 +66,10 @@ public class TypeConverters {
     public static class TestInput {
         private String name;
         private String state;
+    }
+
+    @DataTableType
+    public ChangeItemStateOutput changeItemStateOutput(Map<String, String> map){
+        return new ChangeItemStateOutput(map.get("id"),map.get("name"),map.get("state"));
     }
 }

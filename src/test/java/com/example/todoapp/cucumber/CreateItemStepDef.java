@@ -63,10 +63,8 @@ public class CreateItemStepDef {
     public static class RestControllerTest {
         @LocalServerPort
         private int port;
-
         @Autowired
         private TestRestTemplate restTemplate;
-
         private CreateItemOutputRest actualItemOutputData;
 
         @When("\"{user}\" creates the item through rest controller")

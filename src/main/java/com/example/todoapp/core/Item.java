@@ -1,18 +1,24 @@
 package com.example.todoapp.core;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.UUID;
 
-@Value
+@Data
+@AllArgsConstructor
 public class Item {
-    private final String id;
-    private final String name;
-    private final String owner;
-    private final String state;
+    private String id;
+    private String name;
+    private String owner;
+    private String state;
 
     public static Item create(String name, String owner, String state) {
         return new Item(UUID.randomUUID().toString(), name, owner, state);
+    }
+
+    public Item copy() {
+        return new Item(id, name, owner, state);
     }
 
     @Override

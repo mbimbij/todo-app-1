@@ -1,5 +1,6 @@
 package com.example.todoapp;
 
+import com.example.todoapp.core.ChangeItemStateUsecase;
 import com.example.todoapp.core.CreateItemUsecase;
 import com.example.todoapp.core.DeleteItemsUsecase;
 import com.example.todoapp.core.Item;
@@ -59,5 +60,10 @@ public class TodoApplication {
     @Bean
     public DeleteItemsUsecase deleteItemsUsecase(ItemRepository itemRepository){
         return new DeleteItemsUsecase(itemRepository);
+    }
+
+    @Bean
+    public ChangeItemStateUsecase changeStateUsecase(ItemRepository itemRepository){
+        return new ChangeItemStateUsecase(itemRepository);
     }
 }
