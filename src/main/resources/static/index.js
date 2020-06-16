@@ -36,7 +36,8 @@ new Vue({
             axios
                 .delete('http://localhost:8080/item/'+itemId)
                 .then(response => {
-                    this.items.remove(function(el) { return el.id === itemId; });
+                    var removeIndex = this.items.map(function(item) { return item.id; }).indexOf(itemId);
+                    this.items.splice(removeIndex, 1);
                 })
                 .catch(reason => (alert(reason)))
         }
