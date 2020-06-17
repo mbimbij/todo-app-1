@@ -1,5 +1,3 @@
-var config = require('config');
-var backUrl = config.backUrl;
 
 Vue.component('button-create-item', {
     data() {
