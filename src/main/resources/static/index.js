@@ -52,4 +52,3 @@ new Vue({
     }
 })
 
-feather.replace()
