@@ -1,3 +1,6 @@
+var config = require('config');
+var backUrl = config.backUrl;
+
 Vue.component('button-create-item', {
     data() {
         return{
@@ -17,7 +20,7 @@ new Vue({
     },
     mounted() {
         axios
-            .get('http://localhost:8080/listItems')
+            .get(backUrl+'/listItems')
             .then(response => (this.items = response.data.items))
             .catch(reason => (alert(reason)))
     },
@@ -25,7 +28,7 @@ new Vue({
         createItem: function() {
             var data = {name: this.newItemName, state: 'todo'};
             axios
-                .post('http://localhost:8080/createItem', data)
+                .post(backUrl+'/createItem', data)
                 .then(response => {
                     this.newItemName = '';
                     return (this.items.push(response.data));
@@ -34,7 +37,7 @@ new Vue({
         },
         deleteItem: function (itemId) {
             axios
-                .delete('http://localhost:8080/item/'+itemId)
+                .delete(backUrl+'/item/'+itemId)
                 .then(response => {
                     var removeIndex = this.items.map(function(item) { return item.id; }).indexOf(itemId);
                     this.items.splice(removeIndex, 1);
@@ -43,7 +46,7 @@ new Vue({
         },
         changeState: function (item, newState) {
             axios
-                .post('http://localhost:8080/item/'+item.id+'/changeState/'+newState, null)
+                .post(backUrl+'/item/'+item.id+'/changeState/'+newState, null)
                 .then(response => {
                     item.state = newState
                 })
