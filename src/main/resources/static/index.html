@@ -39,10 +39,10 @@
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         state
                     </div>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">todo</a>
-                        <a class="dropdown-item" href="#">doing</a>
-                        <a class="dropdown-item" href="#">done</a>
+                    <div class="dropdown-menu" aria-label4ledby="dropdownMenuButton">
+                        <a v-on:click="changeState(item, 'todo')" class="dropdown-item" href="#">todo</a>
+                        <a v-on:click="changeState(item, 'doing')" class="dropdown-item" href="#">doing</a>
+                        <a v-on:click="changeState(item, 'done')" class="dropdown-item" href="#">done</a>
                     </div>
                 </div>
             </td>

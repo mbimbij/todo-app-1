@@ -40,6 +40,14 @@ new Vue({
                     this.items.splice(removeIndex, 1);
                 })
                 .catch(reason => (alert(reason)))
+        },
+        changeState: function (item, newState) {
+            axios
+                .post('http://localhost:8080/item/'+item.id+'/changeState/'+newState, null)
+                .then(response => {
+                    item.state = newState
+                })
+                .catch(reason => (alert(reason)))
         }
     }
 })
