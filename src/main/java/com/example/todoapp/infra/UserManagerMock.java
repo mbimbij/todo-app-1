@@ -15,6 +15,7 @@ public class UserManagerMock implements UserManager {
         return loggedInUser;
     }
 
+    @Override
     public void setLoggedInUser(User loggedInUser) {
         this.loggedInUser = loggedInUser;
     }

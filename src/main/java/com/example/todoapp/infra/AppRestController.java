@@ -10,7 +10,9 @@ import com.example.todoapp.core.Item;
 import com.example.todoapp.core.ItemPresentation;
 import com.example.todoapp.core.ListItemsResponseModel;
 import com.example.todoapp.core.ListItemsUsecase;
+import com.example.todoapp.core.User;
 import com.example.todoapp.core.UserManager;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @Component
@@ -27,13 +30,19 @@ public class AppRestController {
     @Autowired
     private UserManager userManager;
 
+    private boolean isUserNotLoggedIn(Principal principal){
+        return principal == null || StringUtils.isBlank(principal.getName());
+    }
+
     @RestController
     public class ListItemsRestController {
         @Autowired
         private ListItemsUsecase usecase;
 
         @GetMapping("/listItems")
-        public ListItemsResponseModel listItems() {
+        public ListItemsResponseModel listItems(Principal principal) {
+            String username = isUserNotLoggedIn(principal) ? "user1" : principal.getName();
+            userManager.setLoggedInUser(User.createWithId(username));
             List<ItemPresentation> itemPresentations = usecase.presentItemsForUser(userManager.getLoggedInUser());
             ListItemsResponseModel response = new ListItemsResponseModel();
             response.items = itemPresentations;

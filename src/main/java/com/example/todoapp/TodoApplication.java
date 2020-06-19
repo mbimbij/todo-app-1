@@ -29,9 +29,9 @@ public class TodoApplication {
         repository.save(Item.create("task1", "user1", "todo"));
         repository.save(Item.create("task2", "user1", "doing"));
         repository.save(Item.create("task3", "user1", "done"));
-        repository.save(Item.create("task4", "user2", "todo"));
-        repository.save(Item.create("task5", "user2", "doing"));
-        repository.save(Item.create("task6", "user2", "done"));
+        repository.save(Item.create("UUtask4", "user", "todo"));
+        repository.save(Item.create("UUtask5", "user", "doing"));
+        repository.save(Item.create("UUtask6", "user", "done"));
         return repository;
     }
 

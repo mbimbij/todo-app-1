@@ -1,13 +1,16 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="index.css"/>
+    <link rel="stylesheet" th:href="@{/public/index.css}"/>
     <title>My First Todo list app</title>
 </head>
 <body>
 <div class="container" id="app">
-    <h1 style="text-align: center">Todo List</h1>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">Todo List</a>
+        <a class="btn btn-primary" href="/login.html">login</a>
+    </nav>
     <br/>
     <div id="createItem">
         <form>
@@ -74,6 +77,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-<script src="config.js"></script>
-<script type="module" src="index.js"></script>
+<script th:src="@{/public/config.js}"></script>
+<script th:src="@{/public/index.js}" type="module"></script>
 </html>
