@@ -26,8 +26,8 @@ public class BackgroupStepDef {
     }
 
     @Given("users")
-    public void loggedInUsers(List<String> userIds) {
-        userIds.stream().map(User::createWithId).forEach(userRepository::save);
+    public void loggedInUsers(List<String> userNames) {
+        userNames.stream().map(User::createWithName).forEach(userRepository::save);
     }
 
     @Given("logged in user \"{user}\"")

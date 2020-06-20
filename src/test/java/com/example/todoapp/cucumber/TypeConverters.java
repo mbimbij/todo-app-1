@@ -4,12 +4,15 @@ import com.example.todoapp.core.ChangeItemStateOutput;
 import com.example.todoapp.core.Item;
 import com.example.todoapp.core.ItemPresentation;
 import com.example.todoapp.core.ListItemsResponseModel;
+import com.example.todoapp.core.UnknownUserException;
 import com.example.todoapp.core.User;
+import com.example.todoapp.core.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.ParameterType;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,9 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class TypeConverters {
+    @Autowired
+    private UserRepository userRepository;
+
     @DataTableType
     public Item item(Map<String, String> map) {
 //        return Item.create(map.get("name"), map.get("owner"), map.get("state"));
@@ -31,8 +37,8 @@ public class TypeConverters {
     }
 
     @ParameterType(".*")
-    public User user(String userId) {
-        return User.createWithId(userId);
+    public User user(String userName) {
+        return userRepository.getByUsername(userName).orElseThrow(() -> new UnknownUserException(userName));
     }
 
     public static DataTable toDataTable(ListItemsResponseModel listItemsResponseModel) {

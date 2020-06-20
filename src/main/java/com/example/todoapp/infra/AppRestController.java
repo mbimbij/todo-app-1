@@ -10,8 +10,10 @@ import com.example.todoapp.core.Item;
 import com.example.todoapp.core.ItemPresentation;
 import com.example.todoapp.core.ListItemsResponseModel;
 import com.example.todoapp.core.ListItemsUsecase;
+import com.example.todoapp.core.UnknownUserException;
 import com.example.todoapp.core.User;
 import com.example.todoapp.core.UserManager;
+import com.example.todoapp.core.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class AppRestController {
@@ -39,10 +42,14 @@ public class AppRestController {
         @Autowired
         private ListItemsUsecase usecase;
 
+        @Autowired
+        private UserRepository userRepository;
+
         @GetMapping("/listItems")
         public ListItemsResponseModel listItems(Principal principal) {
             String username = isUserNotLoggedIn(principal) ? "anonymous" : principal.getName();
-            userManager.setLoggedInUser(User.createWithId(username));
+            User user = userRepository.getByUsername(username).orElseThrow(() -> new UnknownUserException(username));
+            userManager.setLoggedInUser(user);
             List<ItemPresentation> itemPresentations = usecase.presentItemsForUser(userManager.getLoggedInUser());
             ListItemsResponseModel response = new ListItemsResponseModel();
             response.items = itemPresentations;
@@ -67,7 +74,7 @@ public class AppRestController {
         }
 
         private CreateItemInput mapInput(@RequestBody CreateItemInputRest inputRest) {
-            return new CreateItemInput(userManager.getLoggedInUser().getId(), inputRest.getName(), inputRest.getState());
+            return new CreateItemInput(userManager.getLoggedInUser().getName(), inputRest.getName(), inputRest.getState());
         }
     }
 

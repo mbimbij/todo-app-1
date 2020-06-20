@@ -33,7 +33,7 @@ public class ChangeStateStepDef {
         @When("\"{user}\" changes the state of item {string} to {string} through rest interface")
         public void changesTheStateOfItemToThroughRestInterface(User user, String itemId, String newState) {
             ResponseEntity<ChangeItemStateOutput> entity = restTemplate
-                    .withBasicAuth(user.getId(),"pass")
+                    .withBasicAuth(user.getName(),"pass")
                     .postForEntity(
                     String.format("http://localhost:%d/item/%s/changeState/%s", port, itemId, newState),
                     null,

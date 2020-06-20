@@ -10,13 +10,13 @@ public class CreateItemUsecase {
     }
 
     public CreateItemOutput createItem(CreateItemInput createItemInput) {
-        String userId = createItemInput.getUserId();
-        String name = createItemInput.getName();
+        String userName = createItemInput.getUserName();
+        String itemName = createItemInput.getName();
         String state = createItemInput.getState();
-        if(!userRepository.exists(userId)){
-            throw new UnknownUserException();
+        if(!userRepository.existsByName(userName)){
+            throw new UnknownUserException("unknown user with name: "+userName);
         }
-        Item newItem = itemRepository.save(Item.create(name, userId, state));
+        Item newItem = itemRepository.save(Item.create(itemName, userName, state));
         return CreateItemOutput.createFromItem(newItem);
     }
 }

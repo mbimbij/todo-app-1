@@ -6,6 +6,7 @@ import com.example.todoapp.core.DeleteItemsUsecase;
 import com.example.todoapp.core.Item;
 import com.example.todoapp.core.ItemRepository;
 import com.example.todoapp.core.ListItemsUsecase;
+import com.example.todoapp.core.UnknownUserException;
 import com.example.todoapp.core.User;
 import com.example.todoapp.core.UserManager;
 import com.example.todoapp.core.UserRepository;
@@ -51,13 +52,17 @@ public class TodoApplication {
     @Bean
     public UserRepository inMemoryUserRepository() {
         InMemoryUserRepository repository = new InMemoryUserRepository();
-        repository.save(User.createWithId("user1"));
+        repository.save(User.createWithName("anonymous"));
+        repository.save(User.createWithName("user1"));
+        repository.save(User.createWithName("user"));
         return repository;
     }
 
     @Bean
-    public UserManager userManagerMock() {
-        return new UserManagerMock("user1");
+    public UserManager userManagerMock(UserRepository userRepository) {
+        String username = "user1";
+        userRepository.getByUsername(username).orElseThrow(() -> new UnknownUserException("unknown user: "+username));
+        return new UserManagerMock();
     }
 
     @Bean

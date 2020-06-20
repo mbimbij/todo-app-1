@@ -31,7 +31,7 @@ public class ListItemsRestStepDef {
     public void callingListItemsRestMethod(User user) {
         String url = String.format("http://localhost:%d/listItems", port);
         ResponseEntity<ListItemsResponseModel> entity = restTemplate
-                .withBasicAuth(user.getId(),"pass")
+                .withBasicAuth(user.getName(),"pass")
                 .getForEntity(url, ListItemsResponseModel.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         response = entity.getBody();

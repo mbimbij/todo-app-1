@@ -12,8 +12,8 @@ public class ListItemsUsecase {
     }
 
     public List<ItemPresentation> presentItemsForUser(User user) {
-        String userId=user.getId();
-        List<Item> items = itemRepository.getItemsForUser(userId);
+        String userName=user.getName();
+        List<Item> items = itemRepository.getItemsForUser(userName);
         return items.stream()
                 .map(ItemPresentation::createFromItem)
                 .collect(Collectors.toList());

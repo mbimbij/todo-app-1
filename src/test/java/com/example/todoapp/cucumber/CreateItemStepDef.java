@@ -46,7 +46,7 @@ public class CreateItemStepDef {
         @When("\"{user}\" creates the item")
         public void createsTheItem(User user, List<Map<String, String>> maps) {
             Map<String, String> newItemData = maps.get(0);
-            CreateItemInput createItemInput = new CreateItemInput(user.getId(), newItemData.get("name"), newItemData.get("state"));
+            CreateItemInput createItemInput = new CreateItemInput(user.getName(), newItemData.get("name"), newItemData.get("state"));
             usecase.createItem(createItemInput);
             System.out.println();
         }
@@ -73,7 +73,9 @@ public class CreateItemStepDef {
             String newItemName = restInput.getName();
             String newItemState = restInput.getState();
             CreateItemInputRest createItemInput = new CreateItemInputRest(newItemName, newItemState);
-            ResponseEntity<CreateItemOutputRest> responseEntity = restTemplate.postForEntity(url, createItemInput, CreateItemOutputRest.class);
+            ResponseEntity<CreateItemOutputRest> responseEntity = restTemplate
+                    .withBasicAuth(user.getName(), "pass")
+                    .postForEntity(url, createItemInput, CreateItemOutputRest.class);
             assertThat(responseEntity.getStatusCodeValue()).isBetween(200,299);
             actualItemOutputData = responseEntity.getBody();
         }
