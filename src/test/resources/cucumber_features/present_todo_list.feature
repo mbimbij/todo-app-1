@@ -27,7 +27,7 @@ Feature: Presents todo list to logged in users
 
   Scenario: Present items list from rest controller
     Given logged in user "user2"
-    When calling listItems rest method
+    When user "user2" calls listItems rest method
     Then presented items though rest interface are
       | name  | state |
       | item4 | todo  |

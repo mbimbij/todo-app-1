@@ -20,7 +20,7 @@ Feature: user "user" deletes an item from its todolist
   Scenario: Delete one item rest-style
     Given logged in user "user"
     When "user" deletes the item "id1" with a rest delete
-    And calling listItems rest method
+    And user "user" calls listItems rest method
     Then presented items though rest interface are
       | name  | state |
       | item2 | doing |
@@ -31,7 +31,7 @@ Feature: user "user" deletes an item from its todolist
     When "user" deletes the following items by id through rest controller
       | id1 |
       | id2 |
-    And calling listItems rest method
+    And user "user" calls listItems rest method
     Then presented items though rest interface are
       | name  | state |
       | item3 | done  |

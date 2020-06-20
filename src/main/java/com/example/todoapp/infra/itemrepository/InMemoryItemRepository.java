@@ -1,4 +1,4 @@
-package com.example.todoapp.infra;
+package com.example.todoapp.infra.itemrepository;
 
 import com.example.todoapp.core.Item;
 import com.example.todoapp.core.ItemRepository;

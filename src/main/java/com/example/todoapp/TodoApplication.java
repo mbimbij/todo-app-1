@@ -9,9 +9,10 @@ import com.example.todoapp.core.ListItemsUsecase;
 import com.example.todoapp.core.User;
 import com.example.todoapp.core.UserManager;
 import com.example.todoapp.core.UserRepository;
-import com.example.todoapp.infra.InMemoryItemRepository;
 import com.example.todoapp.infra.InMemoryUserRepository;
 import com.example.todoapp.infra.UserManagerMock;
+import com.example.todoapp.infra.itemrepository.JpaItemRepository;
+import com.example.todoapp.infra.itemrepository.JpaItemRepositoryInterface;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -23,15 +24,27 @@ public class TodoApplication {
         SpringApplication.run(TodoApplication.class, args);
     }
 
+//    @Bean
+//    public ItemRepository inMemoryItemRepository() {
+//        InMemoryItemRepository repository = new InMemoryItemRepository();
+//        repository.save(Item.create("task1", "user1", "todo"));
+//        repository.save(Item.create("task2", "user1", "doing"));
+//        repository.save(Item.create("task3", "user1", "done"));
+//        repository.save(Item.create("UUtask4", "user", "todo"));
+//        repository.save(Item.create("UUtask5", "user", "doing"));
+//        repository.save(Item.create("UUtask6", "user", "done"));
+//        return repository;
+//    }
+
     @Bean
-    public ItemRepository inMemoryItemRepository() {
-        InMemoryItemRepository repository = new InMemoryItemRepository();
-        repository.save(Item.create("task1", "user1", "todo"));
-        repository.save(Item.create("task2", "user1", "doing"));
-        repository.save(Item.create("task3", "user1", "done"));
-        repository.save(Item.create("UUtask4", "user", "todo"));
-        repository.save(Item.create("UUtask5", "user", "doing"));
-        repository.save(Item.create("UUtask6", "user", "done"));
+    public ItemRepository jpaItemRepository(JpaItemRepositoryInterface jpaRepository) {
+        ItemRepository repository = new JpaItemRepository(jpaRepository);
+        repository.save(Item.create("anon-task1", "anonymous", "todo"));
+        repository.save(Item.create("anon-task2", "anonymous", "doing"));
+        repository.save(Item.create("anon-task3", "anonymous", "done"));
+        repository.save(Item.create("jpaUUtask4", "user", "todo"));
+        repository.save(Item.create("jpaUUtask5", "user", "doing"));
+        repository.save(Item.create("jpaUUtask6", "user", "done"));
         return repository;
     }
 

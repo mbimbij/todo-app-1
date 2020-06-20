@@ -33,15 +33,15 @@ public class AppRestController {
     private boolean isUserNotLoggedIn(Principal principal){
         return principal == null || StringUtils.isBlank(principal.getName());
     }
-
     @RestController
     public class ListItemsRestController {
+
         @Autowired
         private ListItemsUsecase usecase;
 
         @GetMapping("/listItems")
         public ListItemsResponseModel listItems(Principal principal) {
-            String username = isUserNotLoggedIn(principal) ? "user1" : principal.getName();
+            String username = isUserNotLoggedIn(principal) ? "anonymous" : principal.getName();
             userManager.setLoggedInUser(User.createWithId(username));
             List<ItemPresentation> itemPresentations = usecase.presentItemsForUser(userManager.getLoggedInUser());
             ListItemsResponseModel response = new ListItemsResponseModel();
@@ -72,7 +72,7 @@ public class AppRestController {
     }
 
     @RestController
-    public class DeleteItemRestController {
+    public static class DeleteItemRestController {
         @Autowired
         private DeleteItemsUsecase usecase;
 
@@ -88,7 +88,7 @@ public class AppRestController {
     }
 
     @RestController
-    public class ChangeItemStateRestController {
+    public static class ChangeItemStateRestController {
         @Autowired
         private ChangeItemStateUsecase usecase;
 

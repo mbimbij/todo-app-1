@@ -2,6 +2,7 @@ package com.example.todoapp.cucumber;
 
 import com.example.todoapp.core.ListItemsResponseModel;
 import com.example.todoapp.core.User;
+import com.example.todoapp.core.UserManager;
 import com.example.todoapp.infra.UserManagerMock;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
@@ -23,11 +24,15 @@ public class ListItemsRestStepDef {
     @Autowired
     private TestRestTemplate restTemplate;
     private ListItemsResponseModel response;
+    @Autowired
+    UserManager userManager;
 
-    @When("calling listItems rest method")
-    public void callingListItemsRestMethod() {
+    @When("user \"{user}\" calls listItems rest method")
+    public void callingListItemsRestMethod(User user) {
         String url = String.format("http://localhost:%d/listItems", port);
-        ResponseEntity<ListItemsResponseModel> entity = restTemplate.getForEntity(url, ListItemsResponseModel.class);
+        ResponseEntity<ListItemsResponseModel> entity = restTemplate
+                .withBasicAuth(user.getId(),"pass")
+                .getForEntity(url, ListItemsResponseModel.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         response = entity.getBody();
     }

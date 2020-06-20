@@ -23,7 +23,7 @@ Feature: user "user" changes the state of an item of its todolist
     Then change state returned value is
       | id  | name  | state |
       | id3 | item3 | doing |
-    When calling listItems rest method
+    When user "user" calls listItems rest method
     Then presented items though rest interface are
       | name  | state |
       | item1 | todo  |

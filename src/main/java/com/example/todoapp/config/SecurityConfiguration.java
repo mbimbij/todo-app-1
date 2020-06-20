@@ -28,8 +28,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/*.css",
                         "/*.js"
                 ).permitAll()
-                .antMatchers(POST,"/createItem").permitAll()
+                .antMatchers(POST, "/createItem").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .httpBasic()
                 .and()
                 .formLogin()
                 .loginPage("/login.html")
@@ -42,7 +44,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("user")
                 .password("{noop}pass") // Spring Security 5 requires specifying the password storage format
+                .roles("USER")
+                .and()
+                .withUser("user1")
+                .password("{noop}pass") // Spring Security 5 requires specifying the password storage format
+                .roles("USER")
+                .and()
+                .withUser("user2")
+                .password("{noop}pass") // Spring Security 5 requires specifying the password storage format
                 .roles("USER");
+        ;
+        ;
+
     }
 
 }
