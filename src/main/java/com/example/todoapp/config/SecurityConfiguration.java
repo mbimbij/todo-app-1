@@ -1,11 +1,19 @@
 package com.example.todoapp.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.sql.DataSource;
 
 import static org.springframework.http.HttpMethod.POST;
 
@@ -36,28 +44,42 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login.html")
                 .failureUrl("/login-error.html")
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
                 .permitAll();
     }
 
+    @Autowired
+    @Qualifier("myUserDetailsService")
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("{noop}pass") // Spring Security 5 requires specifying the password storage format
-                .roles("USER")
+        auth.
+                userDetailsService(userDetailsService)
+                .passwordEncoder(encoder())
                 .and()
-                .withUser("user1")
-                .password("{noop}pass") // Spring Security 5 requires specifying the password storage format
-                .roles("USER")
-                .and()
-                .withUser("user2")
-                .password("{noop}pass") // Spring Security 5 requires specifying the password storage format
-                .roles("USER");
-        ;
-        ;
-
+                .authenticationProvider(authenticationProvider(encoder()))
+                .jdbcAuthentication()
+                .dataSource(dataSource);
     }
 
+    @Bean
+    DaoAuthenticationProvider authenticationProvider(PasswordEncoder encoder) {
+        final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(encoder);
+        return authProvider;
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+//        return new BCryptPasswordEncoder(11);
+        return NoOpPasswordEncoder.getInstance();
+    }
 }
 
 
