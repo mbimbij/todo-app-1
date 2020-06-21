@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -34,7 +36,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/item/**",
                         "/favicon.ico",
                         "/*.css",
-                        "/*.js"
+                        "/*.js",
+                        "/currentUser"
                 ).permitAll()
                 .antMatchers(POST, "/createItem").permitAll()
                 .anyRequest().authenticated()
@@ -44,9 +47,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login.html")
                 .failureUrl("/login-error.html")
-//                .and()
-//                .logout()
-//                .logoutUrl("/logout")
+                .permitAll()
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .deleteCookies("JSESSIONID")
                 .permitAll();
     }
 

@@ -20,7 +20,11 @@ new Vue({
         axios
             .get(backUrl+'/listItems')
             .then(response => (this.items = response.data.items))
-            .catch(reason => (alert(reason)))
+            .catch(reason => (alert(reason)));
+        axios
+            .get(backUrl+'/currentUser')
+            .then(response => (this.currentUser = response.data))
+            .catch(reason => (alert(reason)));
     },
     methods:{
         createItem: function() {
