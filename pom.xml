@@ -18,6 +18,7 @@
 		<java.version>11</java.version>
 		<cucumber.version>6.1.1</cucumber.version>
 		<mysql-connector.version>8.0.20</mysql-connector.version>
+		<postgresql-connector.version>42.2.14</postgresql-connector.version>
 	</properties>
 
 	<dependencies>
@@ -57,6 +58,11 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-connector.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql-connector.version}</version>
 		</dependency>
 
 

@@ -13,7 +13,8 @@ new Vue({
     data() {
         return {
             items: [],
-            newItemName: null
+            newItemName: null,
+            currentUser: null,
         }
     },
     mounted() {
