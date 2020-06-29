@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class WebController {
     @RequestMapping("/")
-    public String main() {
+    public String main(Model model) {
+        model.addAttribute("backUrl","coucou");
         return "index.html";
     }
 
