@@ -21,7 +21,7 @@ spec:
       - image: cless91/todo-app:0.0.1-SNAPSHOT
         name: todo-app
         ports:
-        - containerPort: 8090
+        - containerPort: {{ .Values.application.port }}
         env:
         - name: DATABASE_PASSWORD
           valueFrom:

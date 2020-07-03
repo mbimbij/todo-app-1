@@ -7,10 +7,10 @@ metadata:
   name: todo-app
 spec:
   ports:
-  - port: 8090
+  - port: {{ .Values.application.port }}
     protocol: TCP
-    targetPort: 8090
-    nodePort: 30080
+    targetPort: {{ .Values.application.port }}
+    nodePort: {{ .Values.application.service.port }}
   selector:
     app: todo-app
   type: NodePort
