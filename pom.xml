@@ -113,6 +113,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
+					<imageName>
+						cless91/todo-app:${project.version}
+					</imageName>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

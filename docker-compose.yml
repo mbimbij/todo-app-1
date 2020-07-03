@@ -7,30 +7,30 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     ports:
-    - '3306:3306'
+    - '${MYSQL_PORT}:${MYSQL_PORT}'
     expose:
-    - '3306'
+    - '${MYSQL_PORT}'
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: todoapp
       MYSQL_USER: mysqluser
-      MYSQL_PASSWORD: mysqlpass
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
   app:
-    image: todo-app:0.0.1-SNAPSHOT
+    image: cless91/todo-app:0.0.1-SNAPSHOT
     expose:
-    - '8090'
+    - '${APP_PORT}'
     ports:
-    - '8090:8090'
+    - '${APP_PORT}:${APP_PORT}'
     environment:
-      SERVER_PORT: 8090
+      SERVER_PORT: ${APP_PORT}
       LOG_LEVEL: INFO
       JDBC_DRIVER: com.mysql.cj.jdbc.Driver
       DATABASE_USERNAME: mysqluser
-      DATABASE_PASSWORD: mysqlpass
-      DATABASE_URL: jdbc:mysql://db:3306/todoapp?createDatabaseIfNotExist=true&serverTimezone=UTC
+      DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+      DATABASE_URL: jdbc:mysql://db:${MYSQL_PORT}/todoapp?createDatabaseIfNotExist=true&serverTimezone=UTC
       HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
       DDL_AUTO: create
-      BACK_URL: http://localhost:8090
+      BACK_URL: http://localhost:${APP_PORT}
 
 volumes:
   db_data: {}
