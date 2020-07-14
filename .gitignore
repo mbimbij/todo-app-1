@@ -31,4 +31,8 @@ build/
 .vscode/
 
 
-deploy/aws_terraform_ansible/ssh/
+ssh/
+*.tfstate
+*.tfstate.backup
+.terraform/
+secret.tfvars
