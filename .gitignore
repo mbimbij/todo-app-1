@@ -36,3 +36,5 @@ ssh/
 *.tfstate.backup
 .terraform/
 secret.tfvars
+inventory
+ssh.cfg
