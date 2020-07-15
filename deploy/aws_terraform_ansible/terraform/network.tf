@@ -7,7 +7,7 @@ resource "aws_vpc" "vpcTodoApp" {
 }
 
 resource "aws_subnet" "todoApp" {
-  count = 3
+  count = 2
   cidr_block = var.subnets[count.index].cidr_block
   vpc_id = aws_vpc.vpcTodoApp.id
   map_public_ip_on_launch = var.subnets[count.index].isPublic
@@ -92,7 +92,7 @@ resource "aws_route_table_association" "todoAppApplicationRTAssociation" {
   route_table_id = aws_route_table.privateSubnetsRT.id
   subnet_id = aws_subnet.todoApp[1].id
 }
-resource "aws_route_table_association" "todoAppDatabaseRTAssociation" {
-  route_table_id = aws_route_table.privateSubnetsRT.id
-  subnet_id = aws_subnet.todoApp[2].id
-}
+//resource "aws_route_table_association" "todoAppDatabaseRTAssociation" {
+//  route_table_id = aws_route_table.privateSubnetsRT.id
+//  subnet_id = aws_subnet.todoApp[2].id
+//}

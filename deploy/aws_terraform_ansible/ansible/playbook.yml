@@ -1,7 +1,7 @@
 ---
 - hosts: all
   remote_user: ubuntu
-  become: true
+  become: yes
   tasks:
     - name: install prerequisites apt dependencies
       apt:
@@ -11,16 +11,16 @@
           - curl
           - gnupg-agent
           - software-properties-common
+          - python3-pip
         update_cache: yes
-
     - name: add docker keys
       apt_key:
         url: "https://download.docker.com/linux/ubuntu/gpg"
         state: present
-
     - name: add docker repos
-      shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
     - name: install docker engine
       apt:
         pkg:
@@ -28,15 +28,57 @@
           - docker-ce-cli
           - containerd.io
         update_cache: yes
-
     - name: add ubuntu to docker group
       user:
         name: "ubuntu"
         groups: "docker"
         append: yes
-
     - name: ensure docker service is running
       service:
         name: docker
         state: started
         enabled: yes
+    - name: pip install docker
+      pip:
+        name: docker
+
+- hosts: machineBdd
+  remote_user: ubuntu
+  become: yes
+  tasks:
+    - name: run MySql container
+      docker_container:
+        name: mysql
+        auto_remove: yes
+        image: mysql:8
+        state: started
+        ports:
+          - "3306:3306"
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: todoapp
+          MYSQL_USER: mysqluser
+          MYSQL_PASSWORD: mysqlpass
+
+- hosts: machineAppli
+  remote_user: ubuntu
+  become: yes
+  tasks:
+    - name: run todo app container
+      docker_container:
+        name: todoApp
+        auto_remove: no
+        image: cless91/todo-app:0.0.1-SNAPSHOT
+        state: started
+        ports:
+        - "8080:8080"
+        env:
+          SERVER_PORT: "8080"
+          LOG_LEVEL: INFO
+          JDBC_DRIVER: com.mysql.cj.jdbc.Driver
+          DATABASE_USERNAME: mysqluser
+          DATABASE_PASSWORD: mysqlpass
+          DATABASE_URL: jdbc:mysql://{{ groups.machineBdd[0] }}:3306/todoapp?createDatabaseIfNotExist=true&serverTimezone=UTC
+          HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+          DDL_AUTO: create
+          BACK_URL: http://{{ groups.machineAppli[0] }}:8080

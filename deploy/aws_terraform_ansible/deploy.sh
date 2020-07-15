@@ -2,9 +2,15 @@ cd terraform
 terraform init
 terraform apply -var-file=secret.tfvars -auto-approve
 cd ..
+
 echo "[all]" > ansible/inventory
-terraform-inventory --list terraform/ | jq '.type_aws_instance' | sed -nr 's/.*"(([0-9]{1,3}.){4})".*/\1/p' >> ansible/inventory
-bastionIp=$(grep -Ev "(10\.0)|(\[all\])" ansible/inventory)
+terraform-inventory --list terraform/ | jq -r '.type_aws_instance[]' >> ansible/inventory
+echo "[machineAppli]" >> ansible/inventory
+bastionIp=$(terraform-inventory --list terraform/ | jq -r '.machineAppli[]')
+echo $bastionIp >> ansible/inventory
+echo "[machineBdd]" >> ansible/inventory
+terraform-inventory --list terraform/ | jq -r '.machineBdd[]' >> ansible/inventory
+
 echo -e "Host 10.0.* \n\
     ProxyCommand ssh -F ssh.cfg -W %h:%p $bastionIp \n\
     IdentityFile ./ssh/id_rsa \n\
