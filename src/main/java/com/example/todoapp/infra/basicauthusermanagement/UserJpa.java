@@ -1,4 +1,4 @@
-package com.example.todoapp.infra.usermanagement;
+package com.example.todoapp.infra.basicauthusermanagement;
 
 import com.example.todoapp.core.User;
 import lombok.AllArgsConstructor;

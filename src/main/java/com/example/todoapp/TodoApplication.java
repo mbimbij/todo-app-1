@@ -9,11 +9,13 @@ import com.example.todoapp.core.ListItemsUsecase;
 import com.example.todoapp.core.User;
 import com.example.todoapp.core.UserManager;
 import com.example.todoapp.core.UserRepository;
-import com.example.todoapp.infra.usermanagement.JpaUserManager;
+import com.example.todoapp.infra.basicauthusermanagement.JpaUserManager;
 import com.example.todoapp.infra.itemrepository.JpaItemRepository;
 import com.example.todoapp.infra.itemrepository.JpaItemRepositoryInterface;
-import com.example.todoapp.infra.usermanagement.JpaUserRepository;
-import com.example.todoapp.infra.usermanagement.JpaUserRepositoryInterface;
+import com.example.todoapp.infra.basicauthusermanagement.JpaUserRepository;
+import com.example.todoapp.infra.basicauthusermanagement.JpaUserRepositoryInterface;
+import com.example.todoapp.infra.socialauthn.JpaSocialUserRepository;
+import com.example.todoapp.infra.socialauthn.SocialUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -85,6 +87,12 @@ public class TodoApplication {
     @Bean
     public UserRepository userRepository(JpaUserRepositoryInterface jpaUserRepositoryInterface) {
         return new JpaUserRepository(jpaUserRepositoryInterface);
+    }
+
+    @Bean
+    public SocialUserRepository socialUserRepository(JpaSocialUserRepository jpaSocialUserRepository,
+                                                     JpaUserRepositoryInterface userRepository) {
+        return new SocialUserRepository(jpaSocialUserRepository, userRepository);
     }
 
     @Bean

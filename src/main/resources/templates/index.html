@@ -4,6 +4,7 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{/public/index.css}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>My First Todo list app</title>
 </head>
 <body>
@@ -12,7 +13,18 @@
         <a class="navbar-brand" href="#">Todo List - Hello {{ currentUser }}</a>
 
         <span>
-            <a class="btn btn-primary" href="/login.html">login</a>
+            <div class="btn-group">
+              <a class="btn btn-primary" href="/login.html">login</a>
+              <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="/oauth2/authorization/github">login with Github</a>
+                <a class="dropdown-item" href="#">login with Google</a>
+              </div>
+            </div>
+
+
             <a class="btn btn-secondary" href="/logout">
                 <i class="fa fa-sign-out"></i>  logout
             </a>

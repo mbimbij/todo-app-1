@@ -4,7 +4,7 @@ import com.example.todoapp.core.Item;
 import com.example.todoapp.core.ItemRepository;
 import com.example.todoapp.core.User;
 import com.example.todoapp.core.UserRepository;
-import com.example.todoapp.infra.usermanagement.JpaUserManager;
+import com.example.todoapp.infra.basicauthusermanagement.JpaUserManager;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import org.springframework.beans.factory.annotation.Autowired;

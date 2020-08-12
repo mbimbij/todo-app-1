@@ -1,4 +1,4 @@
-package com.example.todoapp.infra.usermanagement;
+package com.example.todoapp.infra.basicauthusermanagement;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
