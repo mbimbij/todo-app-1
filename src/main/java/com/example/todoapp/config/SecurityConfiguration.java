@@ -2,6 +2,7 @@ package com.example.todoapp.config;
 
 import com.example.todoapp.infra.basicauthusermanagement.JpaUserRepositoryInterface;
 import com.example.todoapp.infra.basicauthusermanagement.MyUserDetailsService;
+import com.example.todoapp.infra.basicauthusermanagement.UserJpa;
 import com.example.todoapp.infra.socialauthn.SocialUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,12 +14,21 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.springframework.http.HttpMethod.POST;
 
@@ -66,7 +76,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
             .oauth2Login()
                 .userInfoEndpoint(config -> config
-                        .customUserType(GitHubOAuth2User.class, "github"))
+                        .customUserType(GitHubOAuth2User.class, "github")
+                .oidcUserService(oidcUserRequest -> {
+                    System.out.println();
+                    return new DefaultOidcUser(
+                            Collections.singleton(new OAuth2UserAuthority(Map.of("toto", "tata"))),
+                            oidcUserRequest.getIdToken(),
+                            "name");
+                }))
                 .defaultSuccessUrl("/", true)
                 .successHandler(oauthLoginSuccessHandler());
         // @formatter:on
