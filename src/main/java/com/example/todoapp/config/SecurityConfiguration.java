@@ -65,7 +65,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
             .and()
             .oauth2Login()
-                .userInfoEndpoint(config -> config.customUserType(GitHubOAuth2User.class, "github"))
+                .userInfoEndpoint(config -> config
+                        .customUserType(GitHubOAuth2User.class, "github"))
                 .defaultSuccessUrl("/", true)
                 .successHandler(oauthLoginSuccessHandler());
         // @formatter:on
@@ -110,7 +111,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
-    @Bean UserDetailsService myUserDetailsService(JpaUserRepositoryInterface jpaUserRepositoryInterface){
+    @Bean
+    UserDetailsService myUserDetailsService(JpaUserRepositoryInterface jpaUserRepositoryInterface) {
         return new MyUserDetailsService(jpaUserRepositoryInterface);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.todoapp.infra;
 
 import com.example.todoapp.TodoApplication;
+import com.example.todoapp.infra.socialauthn.SocialUserFactory;
 import com.example.todoapp.infra.socialauthn.SocialUserInfo;
 import com.example.todoapp.infra.socialauthn.SocialUserRepository;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class AppRestControllerTest {
 
     @Test
     void testSocial() {
-        SocialUserInfo socialUserInfo = socialUserRepository.create("some-id", "github", "cless91");
+        SocialUserInfo socialUserInfo = SocialUserFactory.create("some-id", "github", "cless91");
         socialUserRepository.save(socialUserInfo);
 
         assertThat(socialUserRepository.exists("some-id", "github")).isTrue();

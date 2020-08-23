@@ -15,11 +15,6 @@ public class SocialUserRepository {
         this.userRepository = userRepository;
     }
 
-    public SocialUserInfo create(String id, String provider, String username){
-        UserJpa userJpa = UserJpa.fromUser(User.createWithName(username));
-        return new SocialUserInfo(id, provider, userJpa);
-    }
-
     public Optional<SocialUserInfo> get(String id, String providerId){
         return jpaSocialUserRepository.findByIdAndProviderId(id, providerId);
     }

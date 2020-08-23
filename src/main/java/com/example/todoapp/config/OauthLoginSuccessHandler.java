@@ -1,8 +1,10 @@
 package com.example.todoapp.config;
 
+import com.example.todoapp.infra.socialauthn.SocialUserFactory;
+import com.example.todoapp.infra.socialauthn.SocialUserInfo;
 import com.example.todoapp.infra.socialauthn.SocialUserRepository;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -29,10 +31,11 @@ public class OauthLoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         OAuth2User user = (OAuth2User) authentication.getPrincipal();
-        String username = user.getAttribute("login");
-        String socialUserId = Optional.ofNullable(user.getAttribute("id")).map(Object::toString).orElseThrow(() -> new RuntimeException("github user id is null but shouldn't be"));
-        if(!socialUserRepository.exists(socialUserId,"github")){
-            socialUserRepository.save(socialUserRepository.create(socialUserId,"github",username));
+        String providerId = ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
+        SocialUserInfo socialUserInfo = SocialUserFactory.create(providerId, user.getAttributes());
+
+        if(!socialUserRepository.exists(socialUserInfo.getId(),providerId)){
+            socialUserRepository.save(socialUserInfo);
         }
         httpServletResponse.sendRedirect("/");
     }
